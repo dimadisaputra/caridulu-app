@@ -6,7 +6,7 @@ const Button = (props) => {
   } = props;
   return (
     <button
-      className={`h-10 px-6 font-semibold ${classname} rounded-md`}
+      className={`h-11 px-6 font-semibold ${classname} rounded-md`}
       type={type}
     >
       {children}

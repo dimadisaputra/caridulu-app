@@ -4,7 +4,9 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 const CardProduct = (props) => {
   const { children } = props;
   return (
-    <div className="bg-white border rounded-lg hover:shadow">{children}</div>
+    <div className="bg-white border rounded-lg hover:shadow flex flex-col justify-between">
+      {children}
+    </div>
   );
 };
 
@@ -12,27 +14,43 @@ const Header = (props) => {
   const { image } = props;
   return (
     <a href="#">
-      <img src={image} alt="Product Image" className="rounded-t-lg" />
+      <img src={image} alt="Product Image" className="rounded-t-lg object-cover w-full h-48" />
     </a>
   );
 };
 
 const Body = (props) => {
-  const { title, url, price, marketplace, rating, sold, location } = props;
+  const { name, url, price, marketplace, rating, sold, location } = props;
   return (
-    <div className="px-2 py-2">
+    <div className="px-4 py-2 flex flex-col gap-1">
       <a href={url}>
-        <h5 className="tracking-thight">{title}</h5>
+        <h5 className="tracking-thight text-sm line-clamp-2">{name}</h5>
       </a>
-      <p className="font-semibold text-red-600">{price}</p>
-      <p className="mt-2">{marketplace}</p>
-      <div className="flex items-center text-sm">
+      <p className="font-semibold text-red-600 text-sm">
+        Rp{" "}
+        {price.toLocaleString("id-ID", { styles: "currency", currency: "IDR" })}
+      </p>
+
+      <div className="mt-2">
+        {marketplace === "Tokopedia" && (
+          <img
+            src="images/tokopedia-logo.png"
+            alt="Tokopedia Logo"
+            className="h-4"
+          />
+        )}
+
+        {marketplace === "Lazada" && (
+          <img src="images/lazada-logo.png" alt="Lazada Logo" className="h-4" />
+        )}
+      </div>
+      <div className="flex items-center text-xs gap-1">
         <FontAwesomeIcon icon={faStar} className="text-yellow-400" />
         <span>
           {rating} | {sold}+ Terjual
         </span>
       </div>
-      <p className="text-sm">{location}</p>
+      <p className="text-xs">{location.toUpperCase()}</p>
     </div>
   );
 };

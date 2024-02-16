@@ -5,7 +5,7 @@ const RegisterPage = () => {
   return (
     <AuthLayouts
       title="Daftar Akun"
-      //   desc="Pastiin semua data untuk daftar akun sudah bener ya!"
+      desc="Pastiin semua data kamu sudah bener ya!"
       type="register"
     >
       <FormRegister></FormRegister>

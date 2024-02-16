@@ -3,8 +3,14 @@ import Input from "../Elements/Input";
 import { Link } from "react-router-dom";
 
 const FormLogin = () => {
+  const handleLogin = (event) => {
+    event.preventDefault();
+    localStorage.setItem("email", event.target.email.value);
+    localStorage.setItem("password", event.target.password.value);
+    window.location.href = "/";
+  };
   return (
-    <form action="">
+    <form onSubmit={handleLogin}>
       <Input
         title="Email"
         type="email"
@@ -25,7 +31,10 @@ const FormLogin = () => {
           Lupa Kata Sandi?
         </Link>
       </div>
-      <Button classname="text-white bg-green-700 hover:bg-green-800 w-full">
+      <Button
+        classname="text-white bg-green-700 hover:bg-green-800 w-full"
+        type="submit"
+      >
         Masuk
       </Button>
     </form>

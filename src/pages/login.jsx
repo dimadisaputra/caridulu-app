@@ -5,7 +5,7 @@ const LoginPage = () => {
   return (
     <AuthLayouts
       title="Masuk Akun"
-      //   desc="Pastiin Email dan Kata Sandi mu bener ya!"
+      desc="Pastiin Email dan Kata Sandi mu bener ya!"
       type="login"
     >
       <FormLogin></FormLogin>

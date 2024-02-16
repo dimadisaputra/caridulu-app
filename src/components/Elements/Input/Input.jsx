@@ -8,6 +8,7 @@ const Input = (props) => {
       id={id}
       name={name}
       autoComplete={autoComplete}
+      required
     />
   );
 };

@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import Button from "../Elements/Button";
+import Price from "../Elements/Price";
 
 const CardProduct = (props) => {
   const { children } = props;
@@ -14,7 +16,11 @@ const Header = (props) => {
   const { image } = props;
   return (
     <a href="#">
-      <img src={image} alt="Product Image" className="rounded-t-lg object-cover w-full h-48" />
+      <img
+        src={image}
+        alt="Product Image"
+        className="rounded-t-lg object-cover w-full h-48"
+      />
     </a>
   );
 };
@@ -26,10 +32,9 @@ const Body = (props) => {
       <a href={url}>
         <h5 className="tracking-thight text-sm line-clamp-2">{name}</h5>
       </a>
-      <p className="font-semibold text-red-600 text-sm">
-        Rp{" "}
-        {price.toLocaleString("id-ID", { styles: "currency", currency: "IDR" })}
-      </p>
+      <Price classname="font-semibold text-red-600 text-sm">
+        {price}
+      </Price>
 
       <div className="mt-2">
         {marketplace === "Tokopedia" && (
@@ -55,10 +60,14 @@ const Body = (props) => {
   );
 };
 
-const Footer = () => {
+const Footer = (props) => {
+  const { handleAddToCompare, id } = props;
   return (
     <div>
-      <button className="text-sm text-white w-full bg-green-600 hover:bg-green-700 rounded-b-lg font-semibold p-2">
+      <button
+        className="text-sm text-white w-full bg-green-600 hover:bg-green-700 rounded-b-lg font-semibold p-2"
+        onClick={() => handleAddToCompare(id)}
+      >
         Bandingin
       </button>
     </div>

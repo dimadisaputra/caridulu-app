@@ -70,9 +70,22 @@ const SearchPage = () => {
         {compare.map((item) => {
           const product = products.find((product) => product.id === item.id);
           return (
-            <div key={product.id}>
-              <p>{product.name}</p>
-            </div>
+            <CardProduct key={product.id}>
+              <CardProduct.Header image={product.image} height="h-72" />
+              <div className="flex flex-col justify-between">
+                <CardProduct.Body name={product.name} url={product.url} />
+                <CardProduct.Footer
+                  handleAddToCompare={handleAddToCompare}
+                  id={product.id}
+                  url={product.url}
+                  price={product.price}
+                  marketplace={product.marketplace}
+                  rating={product.rating}
+                  sold={product.sold}
+                  location={product.location}
+                />
+              </div>
+            </CardProduct>
           );
         })}
       </Modal>
@@ -124,7 +137,11 @@ const SearchPage = () => {
                 Bandingin ({compare.length})
               </Button>
               <button
-                className="bg-white text-green-600 border border-green-600 rounded-lg px-3 text-sm"
+                className={`bg-white rounded-lg px-3 text-sm border ${
+                  compare.length > 0
+                    ? "text-green-600 border-green-600"
+                    : "text-gray-400 pointer-events-none border-gray-400"
+                }`}
                 onClick={() => handleResetCompare()}
               >
                 <FontAwesomeIcon icon={faArrowRotateRight} />
@@ -136,19 +153,19 @@ const SearchPage = () => {
           {products.map((product) => (
             <CardProduct key={product.id}>
               <CardProduct.Header image={product.image} />
-              <CardProduct.Body
-                name={product.name}
-                url={product.url}
-                price={product.price}
-                marketplace={product.marketplace}
-                rating={product.rating}
-                sold={product.sold}
-                location={product.location}
-              />
-              <CardProduct.Footer
-                handleAddToCompare={handleAddToCompare}
-                id={product.id}
-              />
+              <div className="flex flex-col justify-between">
+                <CardProduct.Body name={product.name} url={product.url} />
+                <CardProduct.Footer
+                  handleAddToCompare={handleAddToCompare}
+                  showButton={true}
+                  id={product.id}
+                  price={product.price}
+                  marketplace={product.marketplace}
+                  rating={product.rating}
+                  sold={product.sold}
+                  location={product.location}
+                />
+              </div>
             </CardProduct>
           ))}
         </div>

@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import Button from "../Elements/Button";
-import Price from "../Elements/Price";
+import TextPrice from "../Elements/TextPrice";
 
 const CardProduct = (props) => {
   const { children } = props;
@@ -50,7 +49,7 @@ const Footer = (props) => {
   return (
     <>
       <div className="px-4 py-2 flex flex-col gap-1">
-        <Price classname="font-semibold text-red-600 text-sm">{price}</Price>
+        <TextPrice classname="font-semibold text-red-600 text-sm">{price}</TextPrice>
 
         <div className="mt-2">
           {marketplace === "Tokopedia" && (

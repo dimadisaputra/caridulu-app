@@ -1,4 +1,4 @@
-const Price = (props) => {
+const TextPrice = (props) => {
   const { children, classname} = props;
   return (
     <p className={classname}>
@@ -11,4 +11,4 @@ const Price = (props) => {
   );
 };
 
-export default Price;
+export default TextPrice;

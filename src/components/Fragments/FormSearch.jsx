@@ -11,6 +11,7 @@ const FormSearch = () => {
             type="text"
             placeholder="Cari Produkmu disini"
             id="search"
+            classname="pr-10"
           ></Input>
           <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
             <FontAwesomeIcon

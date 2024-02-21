@@ -1,3 +1,6 @@
+"use client";
+
+import { Checkbox, Radio, Label, Rating as Star } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +32,8 @@ const Compare = (props) => {
   } = props;
   return (
     <div>
+      <p className="font-semibold py-2 text-gray-500">Bandingin</p>
+
       {compare.map((item) => {
         const product = products.find((product) => product.id === item.id);
 
@@ -129,17 +134,151 @@ const Price = (props) => {
 };
 
 const Marketplace = (props) => {
-  return(
+  const { marketplace, setMarketplace } = props;
+
+  const handleMarketplaceChange = (e) => {
+    const { id, checked } = e.target;
+    setMarketplace({
+      ...marketplace,
+      [id]: checked,
+    });
+  };
+
+  return (
     <div>
-      <Input type="checkbox" id="shopee" placeholder="Shopee"></Input>
-      <input type="checkbox" name="Shopee" id="Shopee" />
-      <p>Test</p>
+      <p className="font-semibold py-2 text-gray-500">Lokapasar</p>
+
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="Shopee"
+          checked={marketplace.Shopee}
+          onChange={handleMarketplaceChange}
+        />
+        <Label htmlFor="Shopee">Shopee</Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="Tokopedia"
+          checked={marketplace.Tokopedia}
+          onChange={handleMarketplaceChange}
+        />
+        <Label htmlFor="Tokopedia">Tokopedia</Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="Lazada"
+          checked={marketplace.Lazada}
+          onChange={handleMarketplaceChange}
+        />
+        <Label htmlFor="Lazada">Lazada</Label>
+      </div>
     </div>
-  )
-}
+  );
+};
+
+const Rating = (props) => {
+  const { filterRating, setFilterRating } = props;
+
+  const handleFilterRatingChange = (e) => {
+    setFilterRating(Number(e.target.value));
+  };
+  return (
+    <div>
+      <p className="font-semibold py-2 text-gray-500">Rating</p>
+
+      <div>
+        <Star>
+          <Radio
+            id="rating5"
+            name="rating"
+            value="5"
+            checked={filterRating === 5}
+            onChange={handleFilterRatingChange}
+          ></Radio>
+          <Label className="flex mx-1" htmlFor="rating5">
+            <Star.Star />
+            <Star.Star />
+            <Star.Star />
+            <Star.Star />
+            <Star.Star />
+          </Label>
+        </Star>
+        <Star>
+          <Radio
+            id="rating4"
+            name="rating"
+            value="4"
+            checked={filterRating === 4}
+            onChange={handleFilterRatingChange}
+          ></Radio>
+          <Label className="flex mx-1" htmlFor="rating4">
+            <Star.Star />
+            <Star.Star />
+            <Star.Star />
+            <Star.Star />
+            <Star.Star filled={false} className="text-gray-400" />
+            <p className="mx-1">ke atas</p>
+          </Label>
+        </Star>
+        <Star>
+          <Radio
+            id="rating3"
+            name="rating"
+            value="3"
+            checked={filterRating === 3}
+            onChange={handleFilterRatingChange}
+          ></Radio>
+          <Label className="flex mx-1" htmlFor="rating3">
+            <Star.Star />
+            <Star.Star />
+            <Star.Star />
+            <Star.Star filled={false} className="text-gray-400" />
+            <Star.Star filled={false} className="text-gray-400" />
+            <p className="mx-1">ke atas</p>
+          </Label>
+        </Star>
+        <Star>
+          <Radio
+            id="rating2"
+            name="rating"
+            value="2"
+            checked={filterRating === 2}
+            onChange={handleFilterRatingChange}
+          ></Radio>
+          <Label className="flex mx-1" htmlFor="rating2">
+            <Star.Star />
+            <Star.Star />
+            <Star.Star filled={false} className="text-gray-400" />
+            <Star.Star filled={false} className="text-gray-400" />
+            <Star.Star filled={false} className="text-gray-400" />
+            <p className="mx-1">ke atas</p>
+          </Label>
+        </Star>
+        <Star>
+          <Radio
+            id="rating1"
+            name="rating"
+            value="1"
+            checked={filterRating === 1}
+            onChange={handleFilterRatingChange}
+          ></Radio>
+          <Label className="flex mx-1" htmlFor="rating1">
+            <Star.Star />
+            <Star.Star filled={false} className="text-gray-400" />
+            <Star.Star filled={false} className="text-gray-400" />
+            <Star.Star filled={false} className="text-gray-400" />
+            <Star.Star filled={false} className="text-gray-400" />
+            <p className="mx-1">ke atas</p>
+          </Label>
+        </Star>
+      </div>
+    </div>
+  );
+};
 
 FilterLayouts.Compare = Compare;
 FilterLayouts.Price = Price;
 FilterLayouts.Marketplace = Marketplace;
+FilterLayouts.Rating = Rating;
 
 export default FilterLayouts;

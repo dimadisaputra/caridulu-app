@@ -2,8 +2,13 @@ import CardProduct from "../Fragments/CardProduct";
 
 const ProductsLayouts = (props) => {
   const { products, handleAddToCompare } = props;
+
+  if (products.length === 0) {
+    return <div className="text-center grow">Sorry, produk yang kamu cari gak ketemu :(</div>;
+  }
+
   return (
-    <div className="w-9/12 grid grid-cols-5 gap-4 ml-4">
+    <div className="grid grid-cols-5 gap-4 ml-4">
       {products.map((product) => (
         <CardProduct key={product.id}>
           <CardProduct.Header image={product.image} />

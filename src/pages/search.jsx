@@ -1,5 +1,4 @@
 import NavBar from "../components/Fragments/NavBar";
-import data from "/home/dimadisaputra/dimadisaputra/dummy-data/search.json";
 import Toast from "../components/Fragments/Toast";
 import CompareLayouts from "../components/Layouts/CompareLayouts";
 import ProductsLayouts from "../components/Layouts/ProductsLayouts";
@@ -7,12 +6,14 @@ import FilterLayouts from "../components/Layouts/FilterLayouts";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Dropdown } from "flowbite-react";
+import { searchProducts } from "../services/searchProducts.service";
 
 const SearchPage = () => {
   const [compare, setCompare] = useState([]);
   const [toast, setToast] = useState(null);
   const [modal, setModal] = useState(false);
-  const [products, setProducts] = useState(data.products);
+  const [products, setProducts] = useState([]);
+  const [productsFiltered, setProductsFiltered] = useState([]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [marketplace, setMarketplace] = useState({
@@ -24,7 +25,17 @@ const SearchPage = () => {
   const [sortOption, setSortOption] = useState("Relevansi");
 
   useEffect(() => {
-    let filteredProducts = data.products.filter(filterProducts);
+    searchProducts((data) => {
+      setProducts(data.products);
+    });
+  }, []);
+
+  useEffect(() => {
+    setProductsFiltered(products);
+  }, [products]);
+
+  useEffect(() => {
+    let filteredProducts = products.filter(filterProducts);
 
     if (sortOption === "Rating") {
       filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
@@ -35,7 +46,7 @@ const SearchPage = () => {
     } else if (sortOption === "Harga Terendah") {
       filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
     }
-    setProducts(filteredProducts);
+    setProductsFiltered(filteredProducts);
   }, [minPrice, maxPrice, marketplace, filterRating, sortOption]);
 
   const handleAddToCompare = (id) => {
@@ -168,7 +179,7 @@ const SearchPage = () => {
             </Dropdown>
           </div>
           <ProductsLayouts
-            products={products}
+            products={productsFiltered}
             handleAddToCompare={handleAddToCompare}
           />
         </div>

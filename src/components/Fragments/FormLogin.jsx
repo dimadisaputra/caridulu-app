@@ -1,43 +1,62 @@
+import { useState } from "react";
+import { login } from "../../services/auth.service";
 import Button from "../Elements/Button";
 import Input from "../Elements/Input";
 import { Link } from "react-router-dom";
 
 const FormLogin = () => {
+  const [loginFailed, setLoginFailed] = useState("");
+
   const handleLogin = (event) => {
     event.preventDefault();
-    localStorage.setItem("email", event.target.email.value);
-    localStorage.setItem("password", event.target.password.value);
-    window.location.href = "/";
+
+    const data = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+    };
+
+    login(data, (status, res) => {
+      if (status) {
+        localStorage.setItem("access_token", res.access_token);
+        localStorage.setItem("refresh_token", res.refresh_token);
+      } else {
+        setLoginFailed(res.response.data.detail);
+      }
+    });
+    window.location.href = "/account";
   };
   return (
-    <form onSubmit={handleLogin}>
-      <Input
-        title="Email"
-        type="email"
-        id="email"
-        placeholder="emailkamu@email.com"
-      ></Input>
-      <Input
-        title="Kata Sandi"
-        type="password"
-        id="password"
-        placeholder="katasandikamu123"
-      ></Input>
-      <div className="my-3">
-        <Link
-          to="/forgot"
-          className="font-bold text-green-700 hover:text-green-800 text-sm"
+    <>
+      <form onSubmit={handleLogin}>
+        <Input
+          title="Email"
+          type="email"
+          id="email"
+          placeholder="emailkamu@email.com"
+        ></Input>
+        <Input
+          title="Kata Sandi"
+          type="password"
+          id="password"
+          placeholder="katasandikamu123"
+        ></Input>
+        <div className="my-3">
+          <Link
+            to="/forgot"
+            className="font-bold text-green-700 hover:text-green-800 text-sm"
+          >
+            Lupa Kata Sandi?
+          </Link>
+        </div>
+        <Button
+          classname="text-white bg-green-700 hover:bg-green-800 w-full"
+          type="submit"
         >
-          Lupa Kata Sandi?
-        </Link>
-      </div>
-      <Button
-        classname="text-white bg-green-700 hover:bg-green-800 w-full"
-        type="submit"
-      >
-        Masuk
-      </Button>
-    </form>
+          Masuk
+        </Button>
+      </form>
+      {loginFailed && <p className="font-bold text-red-700 text-center my-4 text-sm">{loginFailed}</p>}
+    </>
   );
 };
 

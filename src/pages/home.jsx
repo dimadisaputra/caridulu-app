@@ -4,9 +4,9 @@ import FormSearch from "../components/Fragments/FormSearch";
 const HomePage = (props) => {
   return (
     <>
-      <header>
+      {/* <header>
         <NavBar></NavBar>
-      </header>
+      </header> */}
 
       <main className="flex flex-col items-center justify-center gap-8 py-8 px-8">
         <div className="w-full max-w-xl">

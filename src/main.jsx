@@ -7,6 +7,7 @@ import RegisterPage from "./pages/register.jsx";
 import ErrorPage from "./pages/error.jsx";
 import HomePage from "./pages/home.jsx";
 import SearchPage from "./pages/search.jsx";
+import AccountPage from "./pages/account.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
     path: "/search",
     element: <SearchPage></SearchPage>
   },
+  {
+    path: "/account",
+    element: <AccountPage></AccountPage>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

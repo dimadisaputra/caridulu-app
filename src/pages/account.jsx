@@ -1,10 +1,10 @@
 import NavBar from "../components/Fragments/NavBar";
 import Button from "../components/Elements/Button";
 import { useEffect, useState } from "react";
-import { getUser } from "../services/auth.service";
+import { getUser, logout } from "../services/auth.service";
 import { ConfirmModal } from "../components/Fragments/ConfirmModal";
 
-const AccountPage = (props) => {
+const AccountPage = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -12,7 +12,7 @@ const AccountPage = (props) => {
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (token) {
-      user = getUser(token);
+      const user = getUser(token);
       setFullName(user.fnm);
       setEmail(user.eml);
     } else {
@@ -21,9 +21,18 @@ const AccountPage = (props) => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    window.location.href = "/login";
+    const accessToken = localStorage.getItem("access_token");
+
+    logout(accessToken, (status, res) => {
+      if (status) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        window.location.href = "/login";
+      } else {
+        console.log(res.response.data.detail);
+        setOpenModal(false);
+      }
+    });
   };
 
   return (

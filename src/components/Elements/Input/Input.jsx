@@ -8,7 +8,8 @@ const Input = (props) => {
     value,
     onKeyDown = () => {},
     onChange = () => {},
-    classname = ""
+    classname = "",
+    minLength = 0
   } = props;
   return (
     <input
@@ -23,6 +24,7 @@ const Input = (props) => {
       value={value}
       onChange={onChange}
       onKeyDown={onKeyDown}
+      minLength={minLength}
     />
   );
 };

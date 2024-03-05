@@ -19,11 +19,11 @@ const FormLogin = () => {
       if (status) {
         localStorage.setItem("access_token", res.access_token);
         localStorage.setItem("refresh_token", res.refresh_token);
+        window.location.href = "/account";
       } else {
         setLoginFailed(res.response.data.detail);
       }
     });
-    window.location.href = "/account";
   };
   return (
     <>
@@ -39,6 +39,7 @@ const FormLogin = () => {
           type="password"
           id="password"
           placeholder="katasandikamu123"
+          minLength
         ></Input>
         <div className="my-3">
           <Link
@@ -55,7 +56,11 @@ const FormLogin = () => {
           Masuk
         </Button>
       </form>
-      {loginFailed && <p className="font-bold text-red-700 text-center my-4 text-sm">{loginFailed}</p>}
+      {loginFailed && (
+        <p className="font-bold text-red-700 text-center my-4 text-sm">
+          {loginFailed}
+        </p>
+      )}
     </>
   );
 };

@@ -2,7 +2,7 @@ import Label from "./Label";
 import Input from "./Input";
 
 const inputForm = (props) => {
-  const { title, type, id, placeholder, autoComplete = "on" } = props;
+  const { title, type, id, placeholder, autoComplete = "on", minLength } = props;
   return (
     <div className="my-3">
       <Label htmlFor={id}>{title}</Label>
@@ -12,6 +12,7 @@ const inputForm = (props) => {
         name={id}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        minLength = {minLength}
       />
     </div>
   );

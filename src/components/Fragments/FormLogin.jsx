@@ -19,7 +19,7 @@ const FormLogin = () => {
       if (status) {
         localStorage.setItem("access_token", res.access_token);
         localStorage.setItem("refresh_token", res.refresh_token);
-        window.location.href = "/account";
+        window.location.href = "/";
       } else {
         setLoginFailed(res.response.data.detail);
       }
@@ -39,7 +39,6 @@ const FormLogin = () => {
           type="password"
           id="password"
           placeholder="katasandikamu123"
-          minLength
         ></Input>
         <div className="my-3">
           <Link

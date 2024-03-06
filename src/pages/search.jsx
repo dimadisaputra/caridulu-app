@@ -24,11 +24,11 @@ const SearchPage = () => {
   const [filterRating, setFilterRating] = useState(0);
   const [sortOption, setSortOption] = useState("Relevansi");
 
-  useEffect(() => {
-    searchProducts((data) => {
-      setProducts(data.products);
-    });
-  }, []);
+  // useEffect(() => {
+  //   searchProducts((data) => {
+  //     setProducts(data.products);
+  //   });
+  // }, []);
 
   useEffect(() => {
     setProductsFiltered(products);

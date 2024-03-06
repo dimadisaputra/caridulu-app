@@ -1,7 +1,6 @@
 "use client";
 
 import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 const ConfirmModal = (props) => {

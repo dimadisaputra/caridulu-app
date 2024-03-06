@@ -1,20 +1,19 @@
 import NavBar from "../components/Fragments/NavBar";
 import FormSearch from "../components/Fragments/FormSearch";
+import { useLogin } from "../hooks/useLogin";
 
 const HomePage = (props) => {
+  // const { fullName, email } = useLogin();
   return (
     <>
-      {/* <header>
+      <header>
         <NavBar></NavBar>
-      </header> */}
+      </header>
 
       <main className="flex flex-col items-center justify-center gap-8 py-8 px-8">
         <div className="w-full max-w-xl">
           <div className="px-4 py-8">
-            <img
-              src="images/caridulu-logo-light.png"
-              alt="Caridulu Logo"
-            />
+            <img src="images/caridulu-logo-light.png" alt="Caridulu Logo" />
           </div>
           <FormSearch></FormSearch>
         </div>

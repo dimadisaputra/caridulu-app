@@ -9,7 +9,7 @@ const Input = (props) => {
     onKeyDown = () => {},
     onChange = () => {},
     classname = "",
-    minLength = 0
+    minLength = ""
   } = props;
   return (
     <input

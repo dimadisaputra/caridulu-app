@@ -8,12 +8,14 @@ import { ConfirmModal } from "./ConfirmModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../services/auth.service";
+import { useLogin } from "../../hooks/useLogin";
 
 const NavBar = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const [openModal, setOpenModal] = useState(false);
   const [isLogin, setIsLogin] = useState();
+  const { fullName, email } = useLogin();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -50,18 +52,19 @@ const NavBar = () => {
       >
         {!isHomePage && (
           <>
-            <img
-              src="images/caridulu-logo-light.png"
-              alt="Logo Caridulu"
-              className="h-6 flex-none"
-            />
+            <div className="flex-none">
+              <Link to={"/"}>
+                <img
+                  src="images/caridulu-logo-light.png"
+                  alt="Logo Caridulu"
+                  className="h-6"
+                />
+              </Link>
+            </div>
             <FormSearch></FormSearch>
           </>
         )}
 
-        {/* Cek apakah user sudah login? */}
-        {/* Jika belum yang muncul adalah tombol login */}
-        {/* Jika sudah yang muncul adalah UserAvatar */}
         {!isLogin && (
           <Button className="flex-none">
             <Link to="/login">Masuk</Link>
@@ -80,17 +83,17 @@ const NavBar = () => {
             inline
           >
             <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
+              <span className="block text-sm">{fullName}</span>
               <span className="block truncate text-sm font-medium">
-                name@flowbite.com
+                {email}
               </span>
             </Dropdown.Header>
-            <Dropdown.Item as="a" href="/account">
-              Akun
-            </Dropdown.Item>
-            <Dropdown.Item as="a" href="/history">
-              Riwayat
-            </Dropdown.Item>
+            <Link to={"/account"}>
+              <Dropdown.Item>Akun</Dropdown.Item>
+            </Link>
+            <Link to={"/history"}>
+              <Dropdown.Item>Riwayat</Dropdown.Item>
+            </Link>
             <Dropdown.Divider />
             <Dropdown.Item
               onClick={() => {

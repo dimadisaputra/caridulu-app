@@ -5,26 +5,30 @@ import { deleteHistory, getHistory } from "../services/history.service";
 import moment from "moment/moment";
 import "moment/locale/id";
 import { ConfirmModal } from "../components/Fragments/ConfirmModal";
+import { useLogin } from "../hooks/useLogin";
 
 const HistoryPage = () => {
   const [histories, setHistories] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const token = localStorage.getItem("access_token");
+  const { fullName, email } = useLogin();
 
   useEffect(() => {
-    getHistory(token, (status, res) => {
-      if (status) {
-        setHistories(res.data);
-      } else {
-        console.log(res);
-      }
-    });
-  }, []);
+    if (fullName) {
+      getHistory((status, res) => {
+        if (status) {
+          setHistories(res.data);
+        } else {
+          console.log(res);
+        }
+      });
+    }
+  }, [fullName]);
 
   const handleDeleteHistory = () => {
-    deleteHistory(token, (status, res) => {
+    deleteHistory((status, res) => {
       if (status) {
-        console.log(res);
+        setOpenModal(false);
+        setHistories([])
       } else {
         console.log(res);
       }
@@ -41,31 +45,35 @@ const HistoryPage = () => {
       />
       <div className="flex flex-col items-center p-4">
         <div className="w-full max-w-4xl">
-          <div className="flex justify-end max-w-4xl">
-            <Button
-              size={"sm"}
-              color="failure"
-              onClick={() => setOpenModal(true)}
-            >
-              Hapus Riwayat
-            </Button>
-          </div>
-          <div className="mt-2">
-            {histories.length > 0 &&
-              histories.map((history) => (
-                <div
-                  className="flex justify-between border-b p-2"
-                  key={history.search_id}
+          {histories.length > 0 && (
+            <>
+              <div className="flex justify-end max-w-4xl">
+                <Button
+                  size={"sm"}
+                  color="failure"
+                  onClick={() => setOpenModal(true)}
                 >
-                  <p>{history.keyword}</p>
-                  <p>
-                    {moment(history.search_date)
-                      .locale("id")
-                      .format("D MMMM YYYY")}
-                  </p>
-                </div>
-              ))}
-          </div>
+                  Hapus Riwayat
+                </Button>
+              </div>
+              <div className="mt-4">
+                {histories.map((history) => (
+                  <div
+                    className="flex justify-between border-b p-2"
+                    key={history.search_id}
+                  >
+                    <p>
+                      {moment(history.search_date)
+                        .locale("id")
+                        .format("HH.mm - D MMMM YYYY")}
+                    </p>
+                    <p>{history.keyword}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+          {histories.length == 0 && <p>Belum ada Riwayat Pencarian</p>}
         </div>
       </div>
     </>

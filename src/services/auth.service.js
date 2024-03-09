@@ -1,5 +1,6 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import api from "./api";
 
 export const login = (data, callback) => {
   axios
@@ -17,13 +18,9 @@ export const getUser = (token) => {
   return decoded;
 };
 
-export const logout = (token, callback) => {
-  axios
-    .post("http://localhost:8000/logout", null, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+export const logout = (callback) => {
+  api
+    .post("http://localhost:8000/logout")
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };

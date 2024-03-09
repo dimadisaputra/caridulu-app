@@ -12,10 +12,12 @@ import { useLogin } from "../../hooks/useLogin";
 
 const NavBar = () => {
   const location = useLocation();
+  const isPublic = location.pathname === "/" || "/search";
   const isHomePage = location.pathname === "/";
+  const isSearchPage = location.pathname === "/search";
   const [openModal, setOpenModal] = useState(false);
   const [isLogin, setIsLogin] = useState();
-  const { fullName, email } = useLogin();
+  const { fullName, email } = useLogin(isPublic);
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -23,9 +25,7 @@ const NavBar = () => {
   }, []);
 
   const handleLogout = () => {
-    const accessToken = localStorage.getItem("access_token");
-
-    logout(accessToken, (status, res) => {
+    logout((status, res) => {
       if (status) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
@@ -61,7 +61,7 @@ const NavBar = () => {
                 />
               </Link>
             </div>
-            <FormSearch></FormSearch>
+            {isSearchPage && <FormSearch></FormSearch>}
           </>
         )}
 

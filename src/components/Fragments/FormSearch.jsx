@@ -3,14 +3,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { createHistory } from "../../services/history.service";
 
 const FormSearch = () => {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const access_token = localStorage.getItem("access_token");
+
+    if (access_token) {
+      createHistory({ keyword }, (status, res) => {
+        if (status) {
+          console.log(res.data.message);
+        } else {
+          console.log(res);
+        }
+      });
+    }
 
     if (location.pathname === "/search") {
       navigate(`?keyword=${keyword}`);
@@ -19,7 +31,7 @@ const FormSearch = () => {
     }
   };
 
-  const handleCange = (event) => {
+  const handleChange = (event) => {
     setKeyword(event.target.value);
   };
 
@@ -32,7 +44,7 @@ const FormSearch = () => {
             placeholder="Cari Produkmu disini"
             id="search"
             classname="pr-10"
-            onChange={handleCange}
+            onChange={handleChange}
           ></Input>
           <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
             <FontAwesomeIcon

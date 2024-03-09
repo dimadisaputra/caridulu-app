@@ -12,7 +12,7 @@ const CardProduct = (props) => {
 };
 
 const Header = (props) => {
-  const { image, height= "h-40" } = props;
+  const { image, height = "h-40" } = props;
   return (
     <a href="#">
       <img
@@ -49,7 +49,9 @@ const Footer = (props) => {
   return (
     <>
       <div className="px-4 py-2 flex flex-col gap-1">
-        <TextPrice classname="font-semibold text-red-600 text-sm">{price}</TextPrice>
+        <TextPrice classname="font-semibold text-red-600 text-sm">
+          {price}
+        </TextPrice>
 
         <div className="mt-2">
           {marketplace === "Tokopedia" && (
@@ -64,6 +66,14 @@ const Footer = (props) => {
             <img
               src="images/lazada-logo.png"
               alt="Lazada Logo"
+              className="h-4"
+            />
+          )}
+
+          {marketplace === "Shopee" && (
+            <img
+              src="images/shopee-logo.png"
+              alt="Shopee Logo"
               className="h-4"
             />
           )}

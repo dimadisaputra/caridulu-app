@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUser } from "../services/auth.service";
 
-export const useLogin = () => {
+export const useLogin = (isPublic) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -12,7 +12,9 @@ export const useLogin = () => {
       setFullName(user.fnm);
       setEmail(user.eml);
     } else {
-      window.location.href = "/login";
+      if (!isPublic) {
+        window.location.href = "/login";
+      }
     }
   }, []);
 

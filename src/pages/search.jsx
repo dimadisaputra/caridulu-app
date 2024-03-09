@@ -1,12 +1,13 @@
+import React from "react";
+import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { searchProducts } from "../services/searchProducts.service";
+import { Dropdown } from "flowbite-react";
 import NavBar from "../components/Fragments/NavBar";
 import Toast from "../components/Fragments/Toast";
 import CompareLayouts from "../components/Layouts/CompareLayouts";
 import ProductsLayouts from "../components/Layouts/ProductsLayouts";
 import FilterLayouts from "../components/Layouts/FilterLayouts";
-import { useState, useEffect } from "react";
-import React from "react";
-import { Dropdown } from "flowbite-react";
-import { searchProducts } from "../services/searchProducts.service";
 
 const SearchPage = () => {
   const [compare, setCompare] = useState([]);
@@ -23,12 +24,16 @@ const SearchPage = () => {
   });
   const [filterRating, setFilterRating] = useState(0);
   const [sortOption, setSortOption] = useState("Relevansi");
+  const dataFetchedRef = useRef(false);
+  let location = useLocation();
 
-  // useEffect(() => {
-  //   searchProducts((data) => {
-  //     setProducts(data.products);
-  //   });
-  // }, []);
+  useEffect(() => {
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+    searchProducts(location.search, (data) => {
+      setProducts(data.products);
+    });
+  }, []);
 
   useEffect(() => {
     setProductsFiltered(products);

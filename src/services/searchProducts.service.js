@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const searchProducts = (callback) => {
+export const searchProducts = (keyword, callback) => {
   axios
-    .get(`http://localhost:8000/search?keyword=keyboard%20mechanical`)
+    .get(`http://localhost:8000/search${keyword}`)
     .then((res) => {
       callback(res.data);
     })

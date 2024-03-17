@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "axios": "^1.6.7",
+    "crypto-js": "^4.2.0",
     "flowbite-react": "^0.7.2",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",

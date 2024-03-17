@@ -9,6 +9,7 @@ const inputForm = (props) => {
     placeholder,
     autoComplete = "on",
     minLength = "",
+    value,
   } = props;
   return (
     <div className="my-3">
@@ -20,6 +21,7 @@ const inputForm = (props) => {
         placeholder={placeholder}
         autoComplete={autoComplete}
         minLength={minLength}
+        value={value}
       />
     </div>
   );

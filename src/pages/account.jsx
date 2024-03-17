@@ -26,7 +26,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar fullName={fullName} email ={email}></NavBar>
       <ConfirmModal
         openModal={openModal}
         setOpenModal={setOpenModal}

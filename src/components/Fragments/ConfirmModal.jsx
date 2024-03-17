@@ -23,10 +23,10 @@ const ConfirmModal = (props) => {
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={() => trueAction()}>
-                {"Iya, yakin"}
+                Iya
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>
-                Gak jadi
+                Tidak
               </Button>
             </div>
           </div>

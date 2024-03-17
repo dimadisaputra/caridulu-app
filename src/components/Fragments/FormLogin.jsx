@@ -3,6 +3,7 @@ import { login } from "../../services/auth.service";
 import Button from "../Elements/Button";
 import Input from "../Elements/Input";
 import { Link } from "react-router-dom";
+import { SHA256 } from "crypto-js";
 
 const FormLogin = () => {
   const [loginFailed, setLoginFailed] = useState("");
@@ -12,7 +13,7 @@ const FormLogin = () => {
 
     const data = {
       email: event.target.email.value,
-      password: event.target.password.value,
+      password: SHA256(event.target.password.value).toString(),
     };
 
     login(data, (status, res) => {
@@ -42,7 +43,7 @@ const FormLogin = () => {
         ></Input>
         <div className="my-3">
           <Link
-            to="/forgot"
+            to="#"
             className="font-bold text-green-700 hover:text-green-800 text-sm"
           >
             Lupa Kata Sandi?

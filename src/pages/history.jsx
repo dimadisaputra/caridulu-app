@@ -28,15 +28,16 @@ const HistoryPage = () => {
     deleteHistory((status, res) => {
       if (status) {
         setOpenModal(false);
-        setHistories([])
+        setHistories([]);
       } else {
         console.log(res);
       }
     });
   };
+  
   return (
     <>
-      <NavBar />
+      <NavBar fullName={fullName} email={email}></NavBar>
       <ConfirmModal
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -73,7 +74,7 @@ const HistoryPage = () => {
               </div>
             </>
           )}
-          {histories.length == 0 && <p>Belum ada Riwayat Pencarian</p>}
+          {histories.length == 0 && <p className="text-center text-red-700 font-bold">Belum ada Riwayat Pencarian</p>}
         </div>
       </div>
     </>

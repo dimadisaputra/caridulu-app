@@ -1,7 +1,7 @@
 const Button = (props) => {
   const {
     children = "Button",
-    classname = "text-white bg-green-600 hover:bg-green-700",
+    classname = "text-white bg-green-500 hover:bg-green-600",
     type = "button",
     onClick = () => {},
   } = props;

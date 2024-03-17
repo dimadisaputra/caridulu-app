@@ -8,16 +8,15 @@ import { ConfirmModal } from "./ConfirmModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../services/auth.service";
-import { useLogin } from "../../hooks/useLogin";
 
-const NavBar = () => {
+const NavBar = (props) => {
   const location = useLocation();
   const isPublic = location.pathname === "/" || "/search";
   const isHomePage = location.pathname === "/";
   const isSearchPage = location.pathname === "/search";
   const [openModal, setOpenModal] = useState(false);
   const [isLogin, setIsLogin] = useState();
-  const { fullName, email } = useLogin(isPublic);
+  const { fullName, email, value } = props;
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -61,14 +60,14 @@ const NavBar = () => {
                 />
               </Link>
             </div>
-            {isSearchPage && <FormSearch></FormSearch>}
+            {isSearchPage && <FormSearch value={value}></FormSearch>}
           </>
         )}
 
         {!isLogin && (
-          <Button className="flex-none">
-            <Link to="/login">Masuk</Link>
-          </Button>
+          <Link to="/login">
+            <Button className="flex-none">Masuk</Button>
+          </Link>
         )}
 
         {isLogin && (
@@ -88,6 +87,11 @@ const NavBar = () => {
                 {email}
               </span>
             </Dropdown.Header>
+            {!isHomePage && (
+              <Link to={"/"}>
+                <Dropdown.Item>Beranda</Dropdown.Item>
+              </Link>
+            )}
             <Link to={"/account"}>
               <Dropdown.Item>Akun</Dropdown.Item>
             </Link>
@@ -100,7 +104,7 @@ const NavBar = () => {
                 setOpenModal(true);
               }}
             >
-              Logout
+              Keluar
             </Dropdown.Item>
           </Dropdown>
         )}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { register } from "../../services/auth.service";
 import Button from "../Elements/Button";
 import Input from "../Elements/Input";
+import { SHA256 } from "crypto-js";
 
 const FormRegister = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,13 +25,13 @@ const FormRegister = () => {
       return;
     }
 
-    const data = { fullname: fullname, email: email, password: password };
+    const data = { fullname: fullname, email: email, password: SHA256(password).toString() };
 
     register(data, (status, res) => {
       if (status) {
-        console.log(res);
+        window.location.href = "/login"
       } else {
-        console.log(res);
+        setErrorMessage(res.response.data.detail);
       }
     });
   };

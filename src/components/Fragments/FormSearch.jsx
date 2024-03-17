@@ -1,16 +1,26 @@
 import Input from "../Elements/Input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { createHistory } from "../../services/history.service";
 
-const FormSearch = () => {
+const FormSearch = (props) => {
   const [keyword, setKeyword] = useState("");
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const keywordParam = params.get("keyword");
+    if (keywordParam) {
+      setKeyword(keywordParam);
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (!keyword) {
+      return
+    }
 
     const access_token = localStorage.getItem("access_token");
 
@@ -25,9 +35,9 @@ const FormSearch = () => {
     }
 
     if (location.pathname === "/search") {
-      navigate(`?keyword=${keyword}`);
+      window.location.href = `?keyword=${keyword}`;
     } else {
-      navigate(`search?keyword=${keyword}`);
+      window.location.href = `/search?keyword=${keyword}`;
     }
   };
 
@@ -41,12 +51,15 @@ const FormSearch = () => {
         <div className="relative grow">
           <Input
             type="text"
-            placeholder="Cari Produkmu disini"
+            placeholder={!keyword ? "Cari Produkmu disini" : keyword}
             id="search"
             classname="pr-10"
             onChange={handleChange}
           ></Input>
-          <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+          <div
+            className="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer"
+            onClick={handleSubmit}
+          >
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
               className="text-gray-500"

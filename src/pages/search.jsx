@@ -8,13 +8,14 @@ import Toast from "../components/Fragments/Toast";
 import CompareLayouts from "../components/Layouts/CompareLayouts";
 import ProductsLayouts from "../components/Layouts/ProductsLayouts";
 import FilterLayouts from "../components/Layouts/FilterLayouts";
+import { useLogin } from "../hooks/useLogin";
 
 const SearchPage = () => {
   const [compare, setCompare] = useState([]);
   const [toast, setToast] = useState(null);
   const [modal, setModal] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [productsFiltered, setProductsFiltered] = useState([]);
+  const [products, setProducts] = useState(null);
+  const [productsFiltered, setProductsFiltered] = useState(null);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [marketplace, setMarketplace] = useState({
@@ -25,7 +26,8 @@ const SearchPage = () => {
   const [filterRating, setFilterRating] = useState(0);
   const [sortOption, setSortOption] = useState("Relevansi");
   const dataFetchedRef = useRef(false);
-  let location = useLocation();
+  const { fullName, email } = useLogin(true);
+  const location = useLocation();
 
   useEffect(() => {
     if (dataFetchedRef.current) return;
@@ -40,18 +42,20 @@ const SearchPage = () => {
   }, [products]);
 
   useEffect(() => {
-    let filteredProducts = products.filter(filterProducts);
+    if (products) {
+      let filteredProducts = products.filter(filterProducts);
 
-    if (sortOption === "Rating") {
-      filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
-    } else if (sortOption === "Terjual") {
-      filteredProducts = filteredProducts.sort((a, b) => b.sold - a.sold);
-    } else if (sortOption === "Harga Tertinggi") {
-      filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
-    } else if (sortOption === "Harga Terendah") {
-      filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+      if (sortOption === "Rating") {
+        filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
+      } else if (sortOption === "Terjual") {
+        filteredProducts = filteredProducts.sort((a, b) => b.sold - a.sold);
+      } else if (sortOption === "Harga Tertinggi") {
+        filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+      } else if (sortOption === "Harga Terendah") {
+        filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+      }
+      setProductsFiltered(filteredProducts);
     }
-    setProductsFiltered(filteredProducts);
   }, [minPrice, maxPrice, marketplace, filterRating, sortOption]);
 
   const handleAddToCompare = (id) => {
@@ -123,7 +127,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar fullName={fullName} email={email}></NavBar>
       <div>{toast && <Toast message={toast.message} type={toast.type} />}</div>
       <CompareLayouts
         products={products}

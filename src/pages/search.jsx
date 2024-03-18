@@ -9,9 +9,10 @@ import CompareLayouts from "../components/Layouts/CompareLayouts";
 import ProductsLayouts from "../components/Layouts/ProductsLayouts";
 import FilterLayouts from "../components/Layouts/FilterLayouts";
 import { useLogin } from "../hooks/useLogin";
-// import dummyProducts from "/home/dimadisaputra/dimadisaputra/dummy-data/response_1709215727483.json";
+import dummyProducts from "/home/dimadisaputra/dimadisaputra/dummy-data/response_1709215727483.json";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Fuse from "fuse.js";
 
 const SearchPage = () => {
   const [compare, setCompare] = useState([]);
@@ -37,18 +38,20 @@ const SearchPage = () => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     searchProducts(location.search, (data) => {
-      setProducts(data.products);
+      const productsRelevant = searchRelevant(data.products);
+      console.log(productsRelevant)
+      setProducts(productsRelevant.map((product)=> product.item));
     });
   }, []);
 
   useEffect(() => {
-    setProductsFiltered(products);
+      setProductsFiltered(products);
   }, [products]);
 
   useEffect(() => {
     if (products) {
       let filteredProducts = products.filter(filterProducts);
-
+      
       if (sortOption === "Rating") {
         filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
       } else if (sortOption === "Terjual") {
@@ -61,6 +64,22 @@ const SearchPage = () => {
       setProductsFiltered(filteredProducts);
     }
   }, [minPrice, maxPrice, marketplace, filterRating, sortOption]);
+
+  const searchRelevant = (list) => {
+    const options = {
+      includeScore: true,
+      souldSort: true,
+      keys: ['name'],
+      threshold: 1.0
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const keyword = params.get("keyword");
+
+    const fuse = new Fuse(list, options)
+
+    return fuse.search(keyword);
+  }
 
   const handleAddToCompare = (id) => {
     const isAlreadyAdded = compare.some((item) => item.id === id);
@@ -183,7 +202,7 @@ const SearchPage = () => {
         <div
           className={`${
             showFilter ? "absolute md:relative top-0 left-0" : "hidden md:block"
-          } w-full md:w-4/12 lg:w-3/12 md:right-0 md:top-0 z-10 bg-white md:bg-transparent border md:border-none p-4 md:p-0`}
+          } w-full md:w-4/12 lg:w-3/12 md:right-0 md:top-0 z-10 bg-white md:bg-transparent border md:border-none p-4 md:px-2`}
         >
           <FilterLayouts>
             <div className="max-h-full overflow-y-auto">

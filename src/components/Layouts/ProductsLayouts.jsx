@@ -23,7 +23,7 @@ const ProductsLayouts = (props) => {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-4 ml-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:ml-4">
       {products.length > 0 &&
         products.map((product) => (
           <CardProduct key={product.id}>

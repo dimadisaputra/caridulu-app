@@ -57,10 +57,10 @@ const HistoryPage = () => {
                   Hapus Riwayat
                 </Button>
               </div>
-              <div className="mt-4">
+              <div className="mt-4 text-sm md:text-base">
                 {histories.map((history) => (
                   <div
-                    className="flex justify-between border-b p-2"
+                    className="flex justify-between border-b p-2 gap-2"
                     key={history.search_id}
                   >
                     <p>

@@ -11,10 +11,8 @@ import { logout } from "../../services/auth.service";
 
 const NavBar = (props) => {
   const location = useLocation();
-  const isPublic = location.pathname === "/" || "/search";
   const isHomePage = location.pathname === "/";
   const isSearchPage = location.pathname === "/search";
-  const [openModal, setOpenModal] = useState(false);
   const [isLogin, setIsLogin] = useState();
   const { fullName, email, value } = props;
 
@@ -22,6 +20,53 @@ const NavBar = (props) => {
     const accessToken = localStorage.getItem("access_token");
     accessToken ? setIsLogin(true) : setIsLogin(false);
   }, []);
+
+  return (
+    <>
+      <nav className="flex flex-row flex-wrap md:flex-nowrap items-center p-4 md:p-8 justify-between gap-4">
+        <div className="flex-none order-1">
+          <Link to={"/"}>
+            <img
+              src="images/caridulu-logo-light.png"
+              alt="Logo Caridulu"
+              className="h-9 md:h-12"
+            />
+          </Link>
+        </div>
+
+        {isSearchPage && (
+          <div className="order-last md:order-2 w-full">
+            <FormSearch />
+          </div>
+        )}
+
+        <div className="order-3">
+          {isLogin ? (
+            <NavBar.Profile
+              fullName={fullName}
+              email={email}
+              isHomePage={isHomePage}
+            />
+          ) : (
+            <NavBar.Login />
+          )}
+        </div>
+      </nav>
+    </>
+  );
+};
+
+const Login = () => {
+  return (
+    <Link to="/login">
+      <Button className="flex-none">Masuk</Button>
+    </Link>
+  );
+};
+
+const Profile = (props) => {
+  const { fullName, email, isHomePage } = props;
+  const [openModal, setOpenModal] = useState(false);
 
   const handleLogout = () => {
     logout((status, res) => {
@@ -37,80 +82,53 @@ const NavBar = (props) => {
   };
 
   return (
-    <>
+    <div>
       <ConfirmModal
         openModal={openModal}
         setOpenModal={setOpenModal}
         desc="Apa kamu yakin mau Keluar?"
         trueAction={handleLogout}
-      />{" "}
-      <nav
-        className={`flex items-center py-8 px-8 ${
-          isHomePage ? "justify-end" : "justify-between"
-        } gap-8`}
+      />
+      <Dropdown
+        label={
+          <FontAwesomeIcon
+            icon={faCircleUser}
+            className="md:text-4xl text-3xl text-green-500"
+          />
+        }
+        arrowIcon={false}
+        inline
       >
+        <Dropdown.Header>
+          <span className="block text-sm">{fullName}</span>
+          <span className="block truncate text-sm font-medium">{email}</span>
+        </Dropdown.Header>
         {!isHomePage && (
-          <>
-            <div className="flex-none">
-              <Link to={"/"}>
-                <img
-                  src="images/caridulu-logo-light.png"
-                  alt="Logo Caridulu"
-                  className="h-6"
-                />
-              </Link>
-            </div>
-            {isSearchPage && <FormSearch value={value}></FormSearch>}
-          </>
-        )}
-
-        {!isLogin && (
-          <Link to="/login">
-            <Button className="flex-none">Masuk</Button>
+          <Link to={"/"}>
+            <Dropdown.Item>Beranda</Dropdown.Item>
           </Link>
         )}
-
-        {isLogin && (
-          <Dropdown
-            label={
-              <FontAwesomeIcon
-                icon={faCircleUser}
-                className="text-4xl text-green-700"
-              />
-            }
-            arrowIcon={false}
-            inline
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">{fullName}</span>
-              <span className="block truncate text-sm font-medium">
-                {email}
-              </span>
-            </Dropdown.Header>
-            {!isHomePage && (
-              <Link to={"/"}>
-                <Dropdown.Item>Beranda</Dropdown.Item>
-              </Link>
-            )}
-            <Link to={"/account"}>
-              <Dropdown.Item>Akun</Dropdown.Item>
-            </Link>
-            <Link to={"/history"}>
-              <Dropdown.Item>Riwayat</Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Dropdown.Item
-              onClick={() => {
-                setOpenModal(true);
-              }}
-            >
-              Keluar
-            </Dropdown.Item>
-          </Dropdown>
-        )}
-      </nav>
-    </>
+        <Link to={"/account"}>
+          <Dropdown.Item>Akun</Dropdown.Item>
+        </Link>
+        <Link to={"/history"}>
+          <Dropdown.Item>Riwayat</Dropdown.Item>
+        </Link>
+        <Dropdown.Divider />
+        <Dropdown.Item
+          onClick={() => {
+            setOpenModal(true);
+          }}
+          className="text-red-700"
+        >
+          Keluar
+        </Dropdown.Item>
+      </Dropdown>
+    </div>
   );
 };
+
+NavBar.Profile = Profile;
+NavBar.Login = Login;
 
 export default NavBar;

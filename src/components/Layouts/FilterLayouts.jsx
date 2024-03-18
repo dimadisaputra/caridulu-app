@@ -2,7 +2,6 @@
 
 import { Checkbox, Radio, Label, Rating as Star } from "flowbite-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Button from "../Elements/Button";
@@ -11,15 +10,7 @@ import Input from "../Elements/Input/Input";
 
 const FilterLayouts = (props) => {
   const { children } = props;
-  return (
-    <div className="w-3/12">
-      <span className="flex items-center gap-2">
-        <FontAwesomeIcon icon={faFilter} className="text-gray-500" />
-        <h5 className="font-semibold text-l text-gray-500 py-2">Filter</h5>
-      </span>
-      <div className="flex flex-col gap-4 p-4 text-sm">{children}</div>
-    </div>
-  );
+  return <div className="flex flex-col gap-4 text-sm">{children}</div>;
 };
 
 const Compare = (props) => {
@@ -109,7 +100,7 @@ const Price = (props) => {
           <Input
             type={"number"}
             id={"minPrice"}
-            placeholder={"0"}
+            placeholder={"Min. Harga"}
             min={"0"}
             value={minPrice}
             onChange={handleMinPriceChange}
@@ -121,7 +112,7 @@ const Price = (props) => {
           <Input
             type="number"
             id="maxPrice"
-            placeholder="0"
+            placeholder="Max. Harga"
             min="0"
             value={maxPrice}
             onChange={handleMaxPriceChange}

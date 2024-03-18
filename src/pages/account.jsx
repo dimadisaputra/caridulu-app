@@ -26,7 +26,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <NavBar fullName={fullName} email ={email}></NavBar>
+      <NavBar fullName={fullName} email={email}></NavBar>
       <ConfirmModal
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -34,14 +34,15 @@ const AccountPage = () => {
         trueAction={handleLogout}
       />
       <div className="flex flex-col gap-8 min-h-screen items-center m-4">
-        <div className="w-full max-w-4xl">
-          <h1 className="text-3xl font-semibold text-green-600 mb-4">
-            Selamat Datang, {fullName}!
-          </h1>
-          <p className="mb-20">
+        <div className="w-full max-w-4xl md:text-left text-center">
+          <div className="text-3xl font-semibold mb-4">
+            <span className="text-gray-700">Halo,{" "}</span>
+            <span className="text-green-500">{fullName}!</span>
+          </div>
+          <p className="mb-4 md:mb-20 text-gray-700">
             Kamu terdaftar dengan email <b>{email}</b>
           </p>
-          <div className="flex justify-end items-center gap-2">
+          <div className="flex justify-center md:justify-end items-center gap-2">
             {/* <Button>Ubah Akun</Button> */}
             <Button
               classname="bg-red-700 text-white"

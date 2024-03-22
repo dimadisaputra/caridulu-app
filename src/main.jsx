@@ -9,6 +9,8 @@ import HomePage from "./pages/home.jsx";
 import SearchPage from "./pages/search.jsx";
 import AccountPage from "./pages/account.jsx";
 import HistoryPage from "./pages/history.jsx";
+import ForgotPasswordPage from "./pages/forgotPassword.jsx";
+import ChangePasswordPage from "./pages/changePassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
   {
     path: "/history",
     element: <HistoryPage />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage />,
+  },
+  {
+    path: "/change-password/:token",
+    element: <ChangePasswordPage/>,
   },
 ]);
 

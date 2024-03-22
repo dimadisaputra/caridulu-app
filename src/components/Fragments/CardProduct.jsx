@@ -84,7 +84,7 @@ const Footer = (props) => {
             {rating} | {sold}+ Terjual
           </span>
         </div>
-        <p className="text-xs">{ location &&(location.toUpperCase())}</p>
+        <p className="text-xs">{ location ? (location.toUpperCase()) : "-"}</p>
       </div>
       {showButton && (
         <div>

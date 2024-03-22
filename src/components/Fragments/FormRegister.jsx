@@ -25,11 +25,15 @@ const FormRegister = () => {
       return;
     }
 
-    const data = { fullname: fullname, email: email, password: SHA256(password).toString() };
+    const data = {
+      fullname: fullname,
+      email: email,
+      password: SHA256(password).toString(),
+    };
 
     register(data, (status, res) => {
       if (status) {
-        window.location.href = "/login"
+        window.location.href = "/login";
       } else {
         setErrorMessage(res.response.data.detail);
       }

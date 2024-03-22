@@ -43,7 +43,7 @@ const FormLogin = () => {
         ></Input>
         <div className="my-3">
           <Link
-            to="#"
+            to="/forgot-password"
             className="font-bold text-green-700 hover:text-green-800 text-sm"
           >
             Lupa Kata Sandi?

@@ -73,7 +73,7 @@ const Profile = (props) => {
       if (status) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        window.location.href = "/login";
+        window.location.href = "/";
       } else {
         console.log(res.response.data.detail);
         setOpenModal(false);

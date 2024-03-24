@@ -35,23 +35,34 @@ const SearchPage = () => {
   const location = useLocation();
 
   useEffect(() => {
+    if (showFilter) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [showFilter]);
+
+  useEffect(() => {
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
     searchProducts(location.search, (data) => {
       const productsRelevant = searchRelevant(data.products);
-      console.log(productsRelevant)
-      setProducts(productsRelevant.map((product)=> product.item));
+      console.log(productsRelevant);
+      setProducts(productsRelevant.map((product) => product.item));
     });
   }, []);
 
   useEffect(() => {
-      setProductsFiltered(products);
+    setProductsFiltered(products);
   }, [products]);
 
   useEffect(() => {
     if (products) {
       let filteredProducts = products.filter(filterProducts);
-      
+
       if (sortOption === "Rating") {
         filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
       } else if (sortOption === "Terjual") {
@@ -69,17 +80,17 @@ const SearchPage = () => {
     const options = {
       includeScore: true,
       souldSort: true,
-      keys: ['name'],
-      threshold: 1.0
-    }
+      keys: ["name"],
+      threshold: 1.0,
+    };
 
     const params = new URLSearchParams(window.location.search);
     const keyword = params.get("keyword");
 
-    const fuse = new Fuse(list, options)
+    const fuse = new Fuse(list, options);
 
     return fuse.search(keyword);
-  }
+  };
 
   const handleAddToCompare = (id) => {
     const isAlreadyAdded = compare.some((item) => item.id === id);
@@ -164,9 +175,9 @@ const SearchPage = () => {
         handleCloseModal={handleCloseModal}
       />
 
-      <div className="flex justify-between items-center px-4 md:px-8">
+      <div className="flex justify-between items-center px-4 md:px-8 bg-white">
         <span
-          className="flex items-center gap-2 text-sm md:text-l cursor-pointer"
+          className="flex items-center gap-2 text-sm md:text-l md:pointer-events-none"
           onClick={toggleShowFilter}
         >
           <FontAwesomeIcon icon={faFilter} className="text-gray-500" />
@@ -201,8 +212,10 @@ const SearchPage = () => {
       <div className="flex px-4 md:px-8 py-2">
         <div
           className={`${
-            showFilter ? "absolute md:relative top-0 left-0" : "hidden md:block"
-          } w-full md:w-4/12 lg:w-3/12 md:right-0 md:top-0 z-10 bg-white md:bg-transparent border md:border-none p-4 md:px-2`}
+            showFilter
+              ? "absolute md:relative bottom-0 left-0 rounded-t-3xl"
+              : "hidden md:block"
+          } w-full md:w-4/12 lg:w-3/12 md:right-0 md:bottom-0 z-10 bg-white md:bg-transparent border md:border-none p-4 md:px-2`}
         >
           <FilterLayouts>
             <div className="max-h-full overflow-y-auto">
@@ -228,7 +241,11 @@ const SearchPage = () => {
                 setMarketplace={setMarketplace}
               />
             </div>
-            <Button color="success" onClick={toggleShowFilter} className="md:hidden">
+            <Button
+              color="success"
+              onClick={toggleShowFilter}
+              className="md:hidden"
+            >
               Terapkan
             </Button>
           </FilterLayouts>

@@ -2,9 +2,11 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import api from "./api";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 export const login = (data, callback) => {
   axios
-    .post("http://localhost:8000/login", data)
+    .post(`${apiURL}/login`, data)
     .then((res) => {
       callback(true, res.data);
     })
@@ -20,28 +22,28 @@ export const getUser = (token) => {
 
 export const logout = (callback) => {
   api
-    .post("http://localhost:8000/logout")
+    .post(`/logout`)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
 
 export const register = (data, callback) => {
   axios
-    .post("http://localhost:8000/register", data)
+    .post(`${apiURL}/register`, data)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
 
 export const forgotPassword = (data, callback) => {
   axios
-    .post("http://localhost:8000/forgot-password", data)
+    .post(`${apiURL}/forgot-password`, data)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
 
 export const changePassword = (data, callback) => {
   axios
-    .post("http://localhost:8000/change-password", data)
+    .post(`${apiURL}/change-password`, data)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };

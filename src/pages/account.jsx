@@ -8,15 +8,12 @@ import { useLogin } from "../hooks/useLogin";
 const AccountPage = () => {
   const { fullName, email } = useLogin();
   const [openModal, setOpenModal] = useState(false);
-
   const handleLogout = () => {
-    const accessToken = localStorage.getItem("access_token");
-
-    logout(accessToken, (status, res) => {
+    logout((status, res) => {
       if (status) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        window.location.href = "/login";
+        window.location.href = "/";
       } else {
         console.log(res.response.data.detail);
         setOpenModal(false);
@@ -36,7 +33,7 @@ const AccountPage = () => {
       <div className="flex flex-col gap-8 min-h-screen items-center m-4">
         <div className="w-full max-w-4xl md:text-left text-center">
           <div className="text-3xl font-semibold mb-4">
-            <span className="text-gray-700">Halo,{" "}</span>
+            <span className="text-gray-700">Halo, </span>
             <span className="text-green-500">{fullName}!</span>
           </div>
           <p className="mb-4 md:mb-20 text-gray-700">

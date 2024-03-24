@@ -14,11 +14,12 @@ const CardProduct = (props) => {
 const Header = (props) => {
   const { image, height = "h-40" } = props;
   return (
-    <a href="#">
+    <a href={image}>
       <img
         src={image}
         alt="Product Image"
         className={`rounded-t-lg object-cover w-full ${height}`}
+        loading="lazy"
       />
     </a>
   );

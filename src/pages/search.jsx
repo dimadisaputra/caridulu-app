@@ -9,7 +9,6 @@ import CompareLayouts from "../components/Layouts/CompareLayouts";
 import ProductsLayouts from "../components/Layouts/ProductsLayouts";
 import FilterLayouts from "../components/Layouts/FilterLayouts";
 import { useLogin } from "../hooks/useLogin";
-import dummyProducts from "/home/dimadisaputra/dimadisaputra/dummy-data/response_1709215727483.json";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Fuse from "fuse.js";

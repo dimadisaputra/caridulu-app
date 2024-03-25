@@ -27,7 +27,7 @@ const NavBar = (props) => {
         <div className="flex-none order-1">
           <Link to={"/"}>
             <img
-              src="images/caridulu-logo-light.png"
+              src="images/caridulu-logo-landscape.png"
               alt="Logo Caridulu"
               className="h-9 md:h-12"
             />

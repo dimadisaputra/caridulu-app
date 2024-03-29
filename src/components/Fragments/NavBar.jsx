@@ -8,6 +8,7 @@ import { ConfirmModal } from "./ConfirmModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { logout } from "../../services/auth.service";
+import { googleLogout } from "@react-oauth/google";
 
 const NavBar = (props) => {
   const location = useLocation();
@@ -73,6 +74,7 @@ const Profile = (props) => {
       if (status) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
+        googleLogout()
         window.location.href = "/";
       } else {
         console.log(res.response.data.detail);

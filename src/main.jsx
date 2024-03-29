@@ -11,6 +11,7 @@ import AccountPage from "./pages/account.jsx";
 import HistoryPage from "./pages/history.jsx";
 import ForgotPasswordPage from "./pages/forgotPassword.jsx";
 import ChangePasswordPage from "./pages/changePassword.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +45,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/change-password/:token",
-    element: <ChangePasswordPage/>,
+    element: <ChangePasswordPage />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
-  </React.StrictMode>
+  <GoogleOAuthProvider clientId="867982525405-q3hac87moqe7782frd9tunssee3f2g12.apps.googleusercontent.com">
+    <React.StrictMode>
+      <RouterProvider router={router}></RouterProvider>
+    </React.StrictMode>
+  </GoogleOAuthProvider>
 );

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { logout } from "../services/auth.service";
 import { ConfirmModal } from "../components/Fragments/ConfirmModal";
 import { useLogin } from "../hooks/useLogin";
+import { googleLogout } from "@react-oauth/google";
+
 
 const AccountPage = () => {
   const { fullName, email } = useLogin();
@@ -13,6 +15,7 @@ const AccountPage = () => {
       if (status) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
+        googleLogout();
         window.location.href = "/";
       } else {
         console.log(res.response.data.detail);

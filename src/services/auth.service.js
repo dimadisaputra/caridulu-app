@@ -47,3 +47,14 @@ export const changePassword = (data, callback) => {
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
+
+export const loginGoogle = (data, callback) => {
+  axios
+    .post(`${apiURL}/login/google`, data)
+    .then((res) => {
+      callback(true, res.data);
+    })
+    .catch((err) => {
+      callback(false, err);
+    });
+};

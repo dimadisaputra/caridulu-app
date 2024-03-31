@@ -10,7 +10,7 @@ import { useLogin } from "../hooks/useLogin";
 const HistoryPage = () => {
   const [histories, setHistories] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const { fullName, email } = useLogin();
+  const { fullName, email, role } = useLogin();
 
   useEffect(() => {
     if (fullName) {
@@ -34,10 +34,10 @@ const HistoryPage = () => {
       }
     });
   };
-  
+
   return (
     <>
-      <NavBar fullName={fullName} email={email}></NavBar>
+      <NavBar fullName={fullName} email={email} role={role}></NavBar>
       <ConfirmModal
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -74,7 +74,11 @@ const HistoryPage = () => {
               </div>
             </>
           )}
-          {histories.length == 0 && <p className="text-center text-red-700 font-bold">Belum ada Riwayat Pencarian</p>}
+          {histories.length == 0 && (
+            <p className="text-center text-red-700 font-bold">
+              Belum ada Riwayat Pencarian
+            </p>
+          )}
         </div>
       </div>
     </>

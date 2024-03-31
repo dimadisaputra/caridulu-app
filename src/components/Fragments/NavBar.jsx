@@ -15,7 +15,7 @@ const NavBar = (props) => {
   const isHomePage = location.pathname === "/";
   const isSearchPage = location.pathname === "/search";
   const [isLogin, setIsLogin] = useState();
-  const { fullName, email, value } = props;
+  const { fullName, email, role } = props;
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -46,6 +46,7 @@ const NavBar = (props) => {
             <NavBar.Profile
               fullName={fullName}
               email={email}
+              role={role}
               isHomePage={isHomePage}
             />
           ) : (
@@ -66,7 +67,7 @@ const Login = () => {
 };
 
 const Profile = (props) => {
-  const { fullName, email, isHomePage } = props;
+  const { fullName, email, role, isHomePage } = props;
   const [openModal, setOpenModal] = useState(false);
 
   const handleLogout = () => {
@@ -74,7 +75,7 @@ const Profile = (props) => {
       if (status) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        googleLogout()
+        googleLogout();
         window.location.href = "/";
       } else {
         console.log(res.response.data.detail);
@@ -105,9 +106,9 @@ const Profile = (props) => {
           <span className="block text-sm">{fullName}</span>
           <span className="block truncate text-sm font-medium">{email}</span>
         </Dropdown.Header>
-        {!isHomePage && (
-          <Link to={"/"}>
-            <Dropdown.Item>Beranda</Dropdown.Item>
+        {role === "a" && (
+          <Link to={"/dashboard"}>
+            <Dropdown.Item>Dashboard</Dropdown.Item>
           </Link>
         )}
         <Link to={"/account"}>

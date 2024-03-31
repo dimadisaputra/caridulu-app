@@ -6,9 +6,8 @@ import { ConfirmModal } from "../components/Fragments/ConfirmModal";
 import { useLogin } from "../hooks/useLogin";
 import { googleLogout } from "@react-oauth/google";
 
-
 const AccountPage = () => {
-  const { fullName, email } = useLogin();
+  const { fullName, email, role } = useLogin();
   const [openModal, setOpenModal] = useState(false);
   const handleLogout = () => {
     logout((status, res) => {
@@ -26,7 +25,7 @@ const AccountPage = () => {
 
   return (
     <>
-      <NavBar fullName={fullName} email={email}></NavBar>
+      <NavBar fullName={fullName} email={email} role={role}></NavBar>
       <ConfirmModal
         openModal={openModal}
         setOpenModal={setOpenModal}

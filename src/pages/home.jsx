@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 
 const HomePage = () => {
-  const { fullName, email } = useLogin(true);
+  const { fullName, email, role } = useLogin(true);
   return (
     <>
       <header>
-        <NavBar fullName={fullName} email={email}></NavBar>
+        <NavBar fullName={fullName} email={email} role={role}></NavBar>
       </header>
       <main className="flex flex-col items-center justify-center gap-8 p-4 md:p-8">
         <div className="w-full flex justify-around items-center flex-col md:flex-row gap-2">

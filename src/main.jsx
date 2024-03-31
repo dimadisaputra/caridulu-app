@@ -12,6 +12,7 @@ import HistoryPage from "./pages/history.jsx";
 import ForgotPasswordPage from "./pages/forgotPassword.jsx";
 import ChangePasswordPage from "./pages/changePassword.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import DashboardPage from "./pages/dashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/change-password/:token",
     element: <ChangePasswordPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
   },
 ]);
 

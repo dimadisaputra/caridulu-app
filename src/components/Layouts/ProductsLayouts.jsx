@@ -9,7 +9,7 @@ const ProductsLayouts = (props) => {
   if (products === null) {
     return (
       <div className="text-center  grow">
-        <Spinner color="success" aria-label="Success spinner example" />;
+        <Spinner color="success" aria-label="Success spinner example" />
       </div>
     );
   }

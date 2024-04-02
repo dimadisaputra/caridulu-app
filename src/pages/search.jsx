@@ -30,7 +30,7 @@ const SearchPage = () => {
   const [sortOption, setSortOption] = useState("Relevansi");
   const [showFilter, setShowFilter] = useState(false);
   const dataFetchedRef = useRef(false);
-  const { fullName, email } = useLogin(true);
+  const { fullName, email, role } = useLogin(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -44,15 +44,15 @@ const SearchPage = () => {
     };
   }, [showFilter]);
 
-  useEffect(() => {
-    if (dataFetchedRef.current) return;
-    dataFetchedRef.current = true;
-    searchProducts(location.search, (data) => {
-      const productsRelevant = searchRelevant(data.products);
-      console.log(productsRelevant);
-      setProducts(productsRelevant.map((product) => product.item));
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (dataFetchedRef.current) return;
+  //   dataFetchedRef.current = true;
+  //   searchProducts(location.search, (data) => {
+  //     const productsRelevant = searchRelevant(data.products);
+  //     console.log(productsRelevant);
+  //     setProducts(productsRelevant.map((product) => product.item));
+  //   });
+  // }, []);
 
   useEffect(() => {
     setProductsFiltered(products);
@@ -165,7 +165,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <NavBar fullName={fullName} email={email}></NavBar>
+      <NavBar fullName={fullName} email={email} role={role}></NavBar>
       <div>{toast && <Toast message={toast.message} type={toast.type} />}</div>
       <CompareLayouts
         products={products}

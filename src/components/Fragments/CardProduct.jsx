@@ -51,7 +51,7 @@ const Footer = (props) => {
     <>
       <div className="px-4 py-2 flex flex-col gap-1">
         <TextPrice classname="font-semibold text-red-600 text-sm">
-          {price}
+          {price ? price : 0}
         </TextPrice>
 
         <div className="mt-2">
@@ -85,7 +85,7 @@ const Footer = (props) => {
             {rating} | {sold}+ Terjual
           </span>
         </div>
-        <p className="text-xs">{ location ? (location.toUpperCase()) : "-"}</p>
+        <p className="text-xs">{location ? location.toUpperCase() : "-"}</p>
       </div>
       {showButton && (
         <div>

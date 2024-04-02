@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-});
+const apiURL = import.meta.env.VITE_API_URL;
 
+const api = axios.create({
+  baseURL: apiURL,
+});
 
 api.interceptors.request.use(
   (config) => {
@@ -26,7 +27,7 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem("refresh_token");
-        const response = await axios.post("http://localhost:8000/refresh-token", {
+        const response = await axios.post(`${apiURL}refresh-token`, {
           refresh_token: refreshToken,
         });
 
@@ -37,7 +38,7 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${access_token}`;
         return axios(originalRequest);
       } catch (error) {
-        window.location.href = "/login";
+        window.location.href = "/";
       }
     }
 

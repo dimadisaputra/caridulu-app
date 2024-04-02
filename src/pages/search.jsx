@@ -44,15 +44,15 @@ const SearchPage = () => {
     };
   }, [showFilter]);
 
-  // useEffect(() => {
-  //   if (dataFetchedRef.current) return;
-  //   dataFetchedRef.current = true;
-  //   searchProducts(location.search, (data) => {
-  //     const productsRelevant = searchRelevant(data.products);
-  //     console.log(productsRelevant);
-  //     setProducts(productsRelevant.map((product) => product.item));
-  //   });
-  // }, []);
+  useEffect(() => {
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+    searchProducts(location.search, (data) => {
+      const productsRelevant = searchRelevant(data.products);
+      console.log(productsRelevant);
+      setProducts(productsRelevant.map((product) => product.item));
+    });
+  }, []);
 
   useEffect(() => {
     setProductsFiltered(products);

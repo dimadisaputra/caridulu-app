@@ -22,7 +22,7 @@ export const getUser = (token) => {
 
 export const logout = (callback) => {
   api
-    .post(`/logout`)
+    .post(`${apiURL}/logout`)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };

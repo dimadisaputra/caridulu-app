@@ -1,15 +1,17 @@
 import api from "./api";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 export const getAllUsers = (callback) => {
   api
-    .get(`/getusers`)
+    .get(`${apiURL}/getusers`)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
 
 export const getAllHistory = (callback) => {
   api
-    .get(`/gethistories`)
+    .get(`${apiURL}/gethistories`)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };

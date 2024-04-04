@@ -10,14 +10,14 @@ export const createHistory = (data, callback) => {
 };
 export const getHistory = (callback) => {
   api
-    .get("${apiURL}/gethistory")
+    .get(`${apiURL}/gethistory`)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
 
 export const deleteHistory = (callback) => {
   api
-    .delete("${apiURL}/deletehistory")
+    .delete(`${apiURL}/deletehistory`)
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };

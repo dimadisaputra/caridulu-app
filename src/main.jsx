@@ -13,6 +13,7 @@ import ForgotPasswordPage from "./pages/forgotPassword.jsx";
 import ChangePasswordPage from "./pages/changePassword.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import DashboardPage from "./pages/dashboard.jsx";
+import PrivacyPolicy from "./pages/privacyPolicy.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardPage />,
   },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicy/>
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

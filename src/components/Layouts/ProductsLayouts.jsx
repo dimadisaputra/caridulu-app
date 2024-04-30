@@ -27,7 +27,7 @@ const ProductsLayouts = (props) => {
       {products.length > 0 &&
         products.map((product) => (
           <CardProduct key={product.id}>
-            <CardProduct.Header image={product.image} />
+            <CardProduct.Header image={product.image} url={product.url}/>
             <div className="flex flex-col justify-between">
               <CardProduct.Body name={product.name} url={product.url} />
               <CardProduct.Footer

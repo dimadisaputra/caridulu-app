@@ -12,9 +12,9 @@ const CardProduct = (props) => {
 };
 
 const Header = (props) => {
-  const { image, height = "h-40" } = props;
+  const { image, url, height = "h-40" } = props;
   return (
-    <a href={image}>
+    <a href={url} target="_blank">
       <img
         src={image}
         alt="Product Image"
@@ -29,7 +29,7 @@ const Body = (props) => {
   const { name, url } = props;
   return (
     <div className="px-4 pt-2">
-      <a href={url}>
+      <a href={url} target="_blank">
         <h5 className="tracking-thight text-sm line-clamp-2">{name}</h5>
       </a>
     </div>

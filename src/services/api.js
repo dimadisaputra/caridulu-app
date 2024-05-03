@@ -1,4 +1,5 @@
 import axios from "axios";
+import { googleLogout } from "@react-oauth/google";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -38,7 +39,10 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${access_token}`;
         return axios(originalRequest);
       } catch (error) {
-        window.location.href = "/";
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        googleLogout();
+        window.location.href = "/login";
       }
     }
 

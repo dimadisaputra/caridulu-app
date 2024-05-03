@@ -41,7 +41,7 @@ const NavBar = (props) => {
           </div>
         )}
 
-        <div className="order-3">
+        <div className="order-3 flex items-center">
           {isHomePage && <Link to={"/about"} className="mx-8 text-green-500">Tentang</Link>}
           {isLogin ? (
             <NavBar.Profile

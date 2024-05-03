@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <NavBar />
-      <div className="p-4 md:p-8">
+      <div className="px-8">
         <p className="text-xl text-center font-semibold text-gray-700 py-8">
           Pemberitahuan Privasi untuk Caridulu
         </p>

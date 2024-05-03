@@ -42,6 +42,7 @@ const NavBar = (props) => {
         )}
 
         <div className="order-3">
+          {isHomePage && <Link to={"/about"} className="mx-8 text-green-500">Tentang</Link>}
           {isLogin ? (
             <NavBar.Profile
               fullName={fullName}

@@ -65,16 +65,10 @@ const HomePage = () => {
             className="h-96 p-2 hidden md:block"
           />
         </div>
-        <div className="w-full md:p-8 md:mt-12">
-          <p className="text-xl text-center md:text-left font-semibold text-gray-700 py-8">
-            Tentang Caridulu
-          </p>
-          <AboutLayouts></AboutLayouts>
-        </div>
       </main>
-      <footer>
+      {/* <footer>
         <FooterFrag></FooterFrag>
-      </footer>
+      </footer> */}
     </>
   );
 };

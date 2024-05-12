@@ -1,6 +1,5 @@
 import NavBar from "../components/Fragments/NavBar";
 import FormSearch from "../components/Fragments/FormSearch";
-import AboutLayouts from "../components/Layouts/AboutLayouts";
 import FooterFrag from "../components/Fragments/FooterFrag";
 import { Link } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";

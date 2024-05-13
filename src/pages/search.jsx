@@ -12,6 +12,7 @@ import { useLogin } from "../hooks/useLogin";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Fuse from "fuse.js";
+import { createHistory, createGuestHistory } from "../services/history.service";
 
 const SearchPage = () => {
   const [compare, setCompare] = useState([]);
@@ -32,6 +33,15 @@ const SearchPage = () => {
   const dataFetchedRef = useRef(false);
   const { fullName, email, role } = useLogin(true);
   const location = useLocation();
+  const [keyword, setKeyword] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const keywordParam = params.get("keyword");
+    if (keywordParam) {
+      setKeyword(keywordParam);
+    }
+  }, []);
 
   useEffect(() => {
     if (showFilter) {
@@ -56,6 +66,10 @@ const SearchPage = () => {
 
   useEffect(() => {
     setProductsFiltered(products);
+
+    if (products != null) {
+      saveHistory();
+    }
   }, [products]);
 
   useEffect(() => {
@@ -161,6 +175,36 @@ const SearchPage = () => {
       filterRating === 0 ? productRating >= 0 : productRating >= filterRating;
 
     return priceFilter && marketplaceFilter && ratingFilter;
+  };
+
+  const saveHistory = () => {
+    const access_token = localStorage.getItem("access_token");
+
+    const result_count = products ? products.length : 0;
+
+    if (access_token) {
+      createHistory(
+        { keyword: keyword, result_count: result_count },
+        (status, res) => {
+          if (status) {
+            console.log(res.data.message);
+          } else {
+            console.log(res);
+          }
+        }
+      );
+    } else {
+      createGuestHistory(
+        { keyword: keyword, result_count: result_count },
+        (status, res) => {
+          if (status) {
+            console.log(res.data.message);
+          } else {
+            console.log(res);
+          }
+        }
+      );
+    }
   };
 
   return (

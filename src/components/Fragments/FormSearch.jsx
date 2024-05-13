@@ -22,18 +22,6 @@ const FormSearch = (props) => {
       return
     }
 
-    const access_token = localStorage.getItem("access_token");
-
-    if (access_token) {
-      createHistory({ keyword }, (status, res) => {
-        if (status) {
-          console.log(res.data.message);
-        } else {
-          console.log(res);
-        }
-      });
-    }
-
     if (location.pathname === "/search") {
       window.location.href = `?keyword=${keyword}`;
     } else {

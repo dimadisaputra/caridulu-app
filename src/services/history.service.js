@@ -1,3 +1,4 @@
+import axios from "axios";
 import api from "./api";
 
 const apiURL = import.meta.env.VITE_API_URL;
@@ -8,6 +9,14 @@ export const createHistory = (data, callback) => {
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
+
+export const createGuestHistory = (data, callback) => {
+  axios
+    .post(`${apiURL}/guest-history`, data)
+    .then((res) => callback(true, res))
+    .catch((err) => callback(false, err));
+};
+
 export const getHistory = (callback) => {
   api
     .get(`${apiURL}/gethistory`)

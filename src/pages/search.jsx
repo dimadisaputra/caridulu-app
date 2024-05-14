@@ -13,6 +13,7 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Fuse from "fuse.js";
 import { createHistory, createGuestHistory } from "../services/history.service";
+import Pagination from "@mui/material/Pagination";
 
 const SearchPage = () => {
   const [compare, setCompare] = useState([]);
@@ -34,6 +35,13 @@ const SearchPage = () => {
   const { fullName, email, role } = useLogin(true);
   const location = useLocation();
   const [keyword, setKeyword] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(20);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = productsFiltered
+    ? productsFiltered.slice(indexOfFirstProduct, indexOfLastProduct)
+    : null;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -86,6 +94,7 @@ const SearchPage = () => {
         filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
       }
       setProductsFiltered(filteredProducts);
+      setCurrentPage(1);
     }
   }, [minPrice, maxPrice, marketplace, filterRating, sortOption]);
 
@@ -296,9 +305,20 @@ const SearchPage = () => {
 
         <div className="w-full md:w-8/12 lg:w-9/12">
           <ProductsLayouts
-            products={productsFiltered}
+            products={currentProducts}
             handleAddToCompare={handleAddToCompare}
           />
+          <div className="flex justify-center mt-4">
+            <Pagination
+              count={
+                productsFiltered
+                  ? Math.ceil(productsFiltered.length / productsPerPage)
+                  : 0
+              }
+              page={currentPage}
+              onChange={(event, value) => setCurrentPage(value)}
+            />
+          </div>
         </div>
       </div>
     </>

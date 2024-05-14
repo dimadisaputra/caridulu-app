@@ -21,29 +21,6 @@ ChartJS.register(
 
 const VerticalBarChart = (props) => {
   const { chartData } = props;
-  // const data = {
-  //   labels: [
-  //     "Jan",
-  //     "Feb",
-  //     "Mar",
-  //     "Apr",
-  //     "Mei",
-  //     "Jun",
-  //     "Jul",
-  //     "Agu",
-  //     "Sep",
-  //     "Okt",
-  //     "Nov",
-  //     "Des",
-  //   ],
-  //   datasets: [
-  //     {
-  //       label: "Pengguna Terdaftar",
-  //       data: [50, 60, 70, 180, 190, 200],
-  //       borderWidth: 1,
-  //     },
-  //   ],
-  // };
 
   const option = {
     scales: {

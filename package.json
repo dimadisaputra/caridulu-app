@@ -26,6 +26,7 @@
     "axios": "^1.6.7",
     "chart.js": "^4.4.2",
     "crypto-js": "^4.2.0",
+    "faker": "^6.6.6",
     "flowbite-react": "^0.7.8",
     "fuse.js": "^7.0.0",
     "gulp-header": "^1.8.9",
@@ -38,7 +39,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.0",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "ua-parser-js": "^1.0.37"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",

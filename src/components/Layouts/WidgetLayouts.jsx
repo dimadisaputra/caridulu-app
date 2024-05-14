@@ -10,12 +10,14 @@ const WidgetLayouts = (props) => {
 };
 
 const Header = (props) => {
-  const { children, title } = props;
+  const { children, title, classname } = props;
 
   return (
     <div className="flex items-center gap-4">
       {children}
-      <p className="text-slate-500 font-semibold text-md my-4">{title}</p>
+      <p className={`text-slate-500 font-semibold text-md my-4 ${classname}`}>
+        {title}
+      </p>
     </div>
   );
 };

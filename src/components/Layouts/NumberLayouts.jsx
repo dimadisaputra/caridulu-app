@@ -33,7 +33,7 @@ const NumberLayouts = (props) => {
   };
 
   return (
-    <div className="flex gap-4 items-center my-4">
+    <div className="md:flex-row flex flex-col gap-4 items-center my-4">
       <CardNumber number={users.length} title="Total Pengguna">
         <FaUser className="text-xl text-green-500" />
       </CardNumber>

@@ -1,9 +1,6 @@
-import "moment/locale/id";
-import moment from "moment/moment";
-import { useEffect, useState } from "react";
 import NumberLayouts from "./NumberLayouts";
 import WidgetLayouts from "./WidgetLayouts";
-import VerticalBarChart from "../Fragments/VerticalBarChart";
+import UserRegBarChart from "../Fragments/UserRegBarChart";
 import { FaArrowTrendUp, FaTable } from "react-icons/fa6";
 import { BsFillBarChartFill } from "react-icons/bs";
 import Box from "@mui/material/Box";
@@ -18,36 +15,6 @@ function Toolbar() {
 }
 
 const UserDashboardLayouts = ({ users }) => {
-  const [chartData, setChartData] = useState();
-
-  useEffect(() => {
-    prepareChartData();
-  }, [users]);
-
-  const prepareChartData = () => {
-    const months = Array(12).fill(0);
-    users.forEach((user) => {
-      const month = moment(user.created_at).month();
-      months[month]++;
-    });
-
-    const monthLabels = moment
-      .months()
-      .map((month) => moment(month, "MMMM").format("MMM"));
-
-    setChartData({
-      labels: monthLabels,
-      datasets: [
-        {
-          label: "Pengguna Mendaftar per Bulan",
-          data: months,
-          backgroundColor: "rgba(54, 162, 235, 0.5)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderWidth: 1,
-        },
-      ],
-    });
-  };
   const lastActUserColumns = [
     { field: "id", headerName: "ID", width: 70 },
     { field: "fullname", headerName: "Nama", width: 150 },
@@ -96,22 +63,15 @@ const UserDashboardLayouts = ({ users }) => {
   ];
   return (
     <>
-      <p className="text-3xl text-gray-500 font-semibold">Dashboard Pengguna</p>
-      <p className="text-sm text-gray-400">
-        Data dan Chart terkait dengan Pengguna
-      </p>
-
-      <NumberLayouts users={users} />
+      <NumberLayouts type="users" users={users} />
 
       <div className="flex flex-col md:grid md:grid-cols-2 gap-4">
-        {chartData && (
-          <WidgetLayouts>
-            <WidgetLayouts.Header title="Pengguna Mendaftar">
-              <FaArrowTrendUp className="text-2xl text-green-500" />
-            </WidgetLayouts.Header>
-            <VerticalBarChart chartData={chartData} />
-          </WidgetLayouts>
-        )}
+        <WidgetLayouts>
+          <WidgetLayouts.Header title="Pengguna Mendaftar">
+            <FaArrowTrendUp className="text-2xl text-green-500" />
+          </WidgetLayouts.Header>
+          <UserRegBarChart users={users} />
+        </WidgetLayouts>
 
         <WidgetLayouts>
           <WidgetLayouts.Header title="Aktivitas Terakhir Pengguna">

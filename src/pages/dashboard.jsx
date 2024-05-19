@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 import NavBar from "../components/Fragments/NavBar";
 import { getAllHistory, getAllUsers } from "../services/dashboard.service";
-import Divider from "@mui/material/Divider";
 import UserDashboardLayouts from "../components/Layouts/UserDashboardLayouts";
 import HistoryDashboardLayouts from "../components/Layouts/HistoryDashboardLayouts";
+import MainDashboardLayouts from "../components/Layouts/MainDashboardLayouts";
+import TemporaryDrawer from "../components/Fragments/TemporaryDrawer";
 
 const DashboardPage = () => {
   const { fullName, email, role } = useLogin();
   const [users, setUsers] = useState([]);
   const [histories, setHistories] = useState([]);
+  const [listOpen, setListOpen] = useState("Utama");
 
   useEffect(() => {
     if (role === "u") {
@@ -36,14 +38,18 @@ const DashboardPage = () => {
 
   return (
     <>
-      <NavBar fullName={fullName} email={email} role={role} />
+      <NavBar fullName={fullName} email={email} role={role}>
+        <TemporaryDrawer setListOpen={setListOpen}></TemporaryDrawer>
+      </NavBar>
 
       <div className="p-8 ">
-        <UserDashboardLayouts users={users} />
-        <div className="my-8">
-          <Divider />
-        </div>
-        <HistoryDashboardLayouts histories={histories} />
+        {listOpen === "Utama" && (
+          <MainDashboardLayouts users={users} histories={histories} />
+        )}
+        {listOpen === "Pengguna" && <UserDashboardLayouts users={users} />}
+        {listOpen === "Riwayat Pencarian" && (
+          <HistoryDashboardLayouts histories={histories} />
+        )}
       </div>
     </>
   );

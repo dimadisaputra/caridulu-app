@@ -1,7 +1,7 @@
 const CardNumber = (props) => {
   const { children, number, numberDesc = "", title } = props;
   return (
-    <div className="rounded-xl border border-gray-300 p-4 bg-white">
+    <div className="rounded-xl border border-gray-300 p-4 bg-white w-full md:w-auto">
       <div className="flex items-center justify-between gap-4">
         {children}
         <div>

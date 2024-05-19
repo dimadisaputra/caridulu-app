@@ -1,6 +1,6 @@
 "use client";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import Button from "../Elements/Button";
 import { Dropdown } from "flowbite-react";
 import FormSearch from "./FormSearch";
@@ -15,7 +15,7 @@ const NavBar = (props) => {
   const isHomePage = location.pathname === "/";
   const isSearchPage = location.pathname === "/search";
   const [isLogin, setIsLogin] = useState();
-  const { fullName, email, role } = props;
+  const { fullName, email, role, children } = props;
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -25,6 +25,7 @@ const NavBar = (props) => {
   return (
     <>
       <nav className="flex flex-row flex-wrap md:flex-nowrap items-center p-4 md:p-8 justify-between gap-4">
+        {children}
         <div className="flex-none order-1">
           <Link to={"/"}>
             <img
@@ -42,7 +43,11 @@ const NavBar = (props) => {
         )}
 
         <div className="order-3 flex items-center">
-          {isHomePage && <Link to={"/about"} className="mx-8 text-green-500">Tentang</Link>}
+          {isHomePage && (
+            <Link to={"/about"} className="mx-8 text-green-500">
+              Tentang
+            </Link>
+          )}
           {isLogin ? (
             <NavBar.Profile
               fullName={fullName}

@@ -4,7 +4,7 @@ import { Spinner } from "flowbite-react";
 import CardProduct from "../Fragments/CardProduct";
 
 const ProductsLayouts = (props) => {
-  const { products, handleAddToCompare } = props;
+  const { products, handleAddToCompare, historyId } = props;
 
   if (products === null) {
     return (
@@ -27,9 +27,14 @@ const ProductsLayouts = (props) => {
       {products.length > 0 &&
         products.map((product) => (
           <CardProduct key={product.id}>
-            <CardProduct.Header image={product.image} url={product.url}/>
+            <CardProduct.Header image={product.image} url={product.url} />
             <div className="flex flex-col justify-between">
-              <CardProduct.Body name={product.name} url={product.url} />
+              <CardProduct.Body
+                name={product.name}
+                url={product.url}
+                marketplace={product.marketplace}
+                historyId={historyId}
+              />
               <CardProduct.Footer
                 handleAddToCompare={handleAddToCompare}
                 showButton={true}

@@ -3,9 +3,10 @@ import UserRegBarChart from "../Fragments/UserRegBarChart";
 import CountHistoryLineChart from "../Fragments/CountHistoryLineChart";
 import TopKeywordsBarChart from "../Fragments/TopKeywordsBarChart";
 import HistoryRolePieChart from "../Fragments/HistoryRolePieChart";
+import MarketplaceVisitsPieChart from "../Fragments/MarketplaceVisitsPieChart";
 
 const MainDashboardLayouts = (props) => {
-  const { users, histories } = props;
+  const { users, histories, productVisits } = props;
   return (
     <div>
       <div className="flex flex-col items-center justify-around gap-8 md:flex-row-reverse">
@@ -28,7 +29,12 @@ const MainDashboardLayouts = (props) => {
           <CountHistoryLineChart histories={histories}></CountHistoryLineChart>
           <TopKeywordsBarChart histories={histories}></TopKeywordsBarChart>
         </div>
-        <HistoryRolePieChart histories={histories}></HistoryRolePieChart>
+        <div className="flex md:flex-row flex-col justify-around items-center gap-4">
+          <HistoryRolePieChart histories={histories}></HistoryRolePieChart>
+          <MarketplaceVisitsPieChart
+            productVisits={productVisits}
+          ></MarketplaceVisitsPieChart>
+        </div>
       </div>
     </div>
   );

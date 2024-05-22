@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import "moment/locale/id";
+import moment from "moment";
 import { searchProducts } from "../services/searchProducts.service";
 import { Button, Dropdown } from "flowbite-react";
 import NavBar from "../components/Fragments/NavBar";
@@ -35,6 +37,7 @@ const SearchPage = () => {
   const { fullName, email, role } = useLogin(true);
   const location = useLocation();
   const [keyword, setKeyword] = useState("");
+  const [historyId, setHistoryId] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(20);
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -69,6 +72,7 @@ const SearchPage = () => {
       const productsRelevant = searchRelevant(data.products);
       console.log(productsRelevant);
       setProducts(productsRelevant.map((product) => product.item));
+      setHistoryId(moment().format("YYYYMMDDHHmmssSSS"));
     });
   }, []);
 
@@ -193,7 +197,7 @@ const SearchPage = () => {
 
     if (access_token) {
       createHistory(
-        { keyword: keyword, result_count: result_count },
+        { history_id: historyId, keyword: keyword, result_count: result_count },
         (status, res) => {
           if (status) {
             console.log(res.data.message);
@@ -204,7 +208,7 @@ const SearchPage = () => {
       );
     } else {
       createGuestHistory(
-        { keyword: keyword, result_count: result_count },
+        { history_id: historyId, keyword: keyword, result_count: result_count },
         (status, res) => {
           if (status) {
             console.log(res.data.message);
@@ -306,6 +310,7 @@ const SearchPage = () => {
         <div className="w-full md:w-8/12 lg:w-9/12">
           <ProductsLayouts
             products={currentProducts}
+            historyId={historyId}
             handleAddToCompare={handleAddToCompare}
           />
           <div className="flex justify-center mt-4">

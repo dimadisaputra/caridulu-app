@@ -15,3 +15,10 @@ export const getAllHistory = (callback) => {
     .then((res) => callback(true, res))
     .catch((err) => callback(false, err));
 };
+
+export const getAllProductVisits = (callback) => {
+  api
+    .get(`${apiURL}/get-product-visits`)
+    .then((res) => callback(true, res))
+    .catch((err) => callback(false, err));
+};

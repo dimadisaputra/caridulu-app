@@ -1,6 +1,5 @@
-"use client";
 import { Link, useLocation } from "react-router-dom";
-import { Children, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../Elements/Button";
 import { Dropdown } from "flowbite-react";
 import FormSearch from "./FormSearch";

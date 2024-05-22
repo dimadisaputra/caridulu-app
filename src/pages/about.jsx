@@ -9,10 +9,7 @@ const AboutPage = () => {
     <div>
       <NavBar fullName={fullName} email={email} role={role}></NavBar>
 
-      <div className="px-8">
-        <p className="text-xl text-center font-semibold text-gray-700 py-8">
-          Tentang Caridulu
-        </p>
+      <div className="px-8 flex justify-center items-center">
         <AboutLayouts></AboutLayouts>
       </div>
     </div>

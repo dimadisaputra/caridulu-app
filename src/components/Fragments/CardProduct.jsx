@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import TextPrice from "../Elements/TextPrice";
+import { createProductVisits } from "../../services/searchProducts.service";
 
 const CardProduct = (props) => {
   const { children } = props;
@@ -26,12 +27,31 @@ const Header = (props) => {
 };
 
 const Body = (props) => {
-  const { name, url } = props;
+  const { name, url, marketplace, historyId } = props;
+
+  const handleClick = () => {
+    createProductVisits(
+      {
+        history_id: historyId,
+        marketplace: marketplace,
+        product_name: name,
+        product_url: url,
+      },
+      (status, res) => {
+        if (status) {
+          console.log(res.data.message);
+          window.open(url, "_blank");
+        } else {
+          console.log(res);
+        }
+      }
+    );
+  };
   return (
     <div className="px-4 pt-2">
-      <a href={url} target="_blank">
+      <p onClick={handleClick} className="cursor-pointer">
         <h5 className="tracking-thight text-sm line-clamp-2">{name}</h5>
-      </a>
+      </p>
     </div>
   );
 };
